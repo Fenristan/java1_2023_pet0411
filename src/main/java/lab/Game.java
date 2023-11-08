@@ -5,10 +5,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
+import java.util.Random;
+
 public class Game {
 	private final double width;
 	private final double height;
 	private Laser laser1;
+	private Laser alienLaser;
 
 	private Cannon[] cannons = new Cannon[2];
 
@@ -31,12 +34,16 @@ public class Game {
 	private Alien[] aliens = new Alien[55];
 	private Bunker[] bunkers = new Bunker[4];
 
+	int aliensInRow = 11;
+	int aliensInColumn = 5;
 	public Game(double width, double height)
 	{
 		this.width=width;
 		this.height=height;
 
 		this.laser1 = new Laser(this, new Point2D(0,0), new Point2D(0,100), new Point2D(5,15));
+		alienLaser = new Laser(this,new Point2D(-50,-50),new Point2D(0,-100),new Point2D(5,15));
+
 		cannons[0]=new Cannon(this, new Point2D(width/2,height-50), new Point2D(30,30));
 
 		cannons[0].setHitListener(new HitListener(){
@@ -69,13 +76,15 @@ public class Game {
 			bunkerXoffset+=150;
 		}
 
+
+
 		int rowcount = 0;
 		Point2D startRowPosition = new Point2D(20,280);
 		Point2D lastPosition = startRowPosition;
 		int colOffset = 40;
-		for(int i = 0; i < 55; i++)
+		for(int i = 0; i < aliensInRow*aliensInColumn; i++)
 		{
-			if(rowcount==11)
+			if(rowcount==aliensInRow)
 			{
 				lastPosition = new Point2D(startRowPosition.getX(),lastPosition.getY()+40);
 				rowcount = 0;
@@ -106,7 +115,7 @@ public class Game {
 			});
 		}
 
-		objects = new DrawableSimulable[62];
+		objects = new DrawableSimulable[63];
 		objects[0] = laser1;
 		objects[1] = cannons[0];
 		//objects[3] = net;
@@ -121,6 +130,8 @@ public class Game {
 		{
 			objects[i]=aliens[i-7];
 		}
+
+		objects[62] = alienLaser;
 		//objects[3] = aliens[0];
 		//objects[4] = aliens[1];
 		//objects[5] = goalL;
@@ -156,6 +167,46 @@ public class Game {
 		for(int i=0; i<objects.length;i++)
 		{
 			objects[i].simulate(t);
+		}
+		Random rand = new Random();
+		for(int i = 0; i < aliensInRow; i++)
+		{
+			if(aliens[i].isAlive())
+			{
+				if(rand.nextInt()%11 == 0)
+				{
+					Point2D alienPosition = aliens[i].getPosition();
+					alienLaser = (Laser) objects[62];
+					alienLaser.fire(new Point2D(alienPosition.getX(),height - alienPosition.getY()+50));
+					System.out.println("vypalil prvni alien: "+i);
+				}
+			}
+		}
+		for(int i=aliensInRow; i<aliens.length;i++)
+		{
+			if(aliens[i-aliensInRow].isAlive())
+			{
+				//if(rand.nextInt(11) == 0)
+				//{
+					//Point2D alienPosition = aliens[i+aliensInRow].getPosition();
+					//alienLaser = (Laser) objects[62];
+					//alienLaser.fire(new Point2D(alienPosition.getX()+alienPosition.getX()/2,height - alienPosition.getY()+70));
+				//}
+				//System.out.println("vypalil prvni alien: "+i +"ktery je zivy? "+aliens[i+aliensInRow].isAlive());
+			}
+			else if(aliens[i].isAlive())
+			{
+				//if(rand.nextInt(11) == 0)
+				//{
+				if(rand.nextInt()%11 == 0)
+				{
+					Point2D alienPosition = aliens[i].getPosition();
+					alienLaser = (Laser) objects[62];
+					alienLaser.fire(new Point2D(alienPosition.getX(),height - alienPosition.getY()+50));
+					System.out.println("vypalil neprvni alien: "+i);
+				}
+
+			}
 		}
 		for(int i=0; i<objects.length;i++)
 		{

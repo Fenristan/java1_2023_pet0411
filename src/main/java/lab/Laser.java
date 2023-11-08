@@ -49,6 +49,12 @@ public class Laser extends GameEntity implements DrawableSimulable, Collisionabl
 			//speed = speed.multiply(-1);
 			reset();
 		}
+		else if(position.getY()+size.getY()<0)
+		{
+			reset();
+			System.out.println("dole");
+		}
+
 		/*if(position.getY()>game.getHeight()-10)
 		{
 			speed = new Point2D(speed.getX(),speed.getY()*-1);

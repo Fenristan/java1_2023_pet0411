@@ -13,6 +13,7 @@ public class Alien extends GameEntity implements Collisionable {
     private Point2D size;
     private HitListener hitListener = new EmptyHitListener();
     private Image image;
+
     private boolean alive = true;
 
     public Alien(int id, Game game, Point2D position, Point2D direction, Point2D size)
@@ -69,8 +70,9 @@ public class Alien extends GameEntity implements Collisionable {
     public void hitBy(Collisionable another) {
         if(another instanceof Laser)
         {
-            hitListener.hit();
             alive = false;
+            hitListener.hit();
+
             position = new Point2D(-50,-50);
         }
         else if(another instanceof Cannon)
@@ -88,5 +90,13 @@ public class Alien extends GameEntity implements Collisionable {
         position = new Point2D(position.getX(), position.getY()-10);
         direction = new Point2D(-direction.getX(), direction.getY());
         System.out.println("Changed directions");
+    }
+
+    public Point2D getPosition() {
+        return position;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 }
