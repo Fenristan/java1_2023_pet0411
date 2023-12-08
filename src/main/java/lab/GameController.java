@@ -158,6 +158,7 @@ public class GameController {
 		animationTimer = new DrawingThread(canvas, game);
 		game.setGameListener(new GameListener2());
 		GameController.this.scoreL.setText("0");
+		GameController.this.textLives.setText("3");
 		animationTimer.start();
 	}
 
@@ -176,6 +177,7 @@ public class GameController {
 		textbox1.setEditable(false);
 
 		game.setPlayerName(textbox1.getText());
+
 
 		canvas.requestFocus();
 	}

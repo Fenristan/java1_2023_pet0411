@@ -92,7 +92,7 @@ public class Game {
 			alien.setHitListener(new HitListener(){
 				@Override
 				public void hit() {
-					Game.this.score.increaseScore(0);
+					Game.this.score.increaseScore();
 					gameListener.stateChanged(Game.this.score);
 
 				}

@@ -18,12 +18,9 @@ public class Score extends GameEntity implements DrawableSimulable {
         this.position=position;
     }
 
-    public void increaseScore(int goalId)
+    public void increaseScore()
     {
-        if(goalId==0)
-        {
-            scoreL++;
-        }
+        scoreL++;
     }
 
     public int getScore(int goalId)
