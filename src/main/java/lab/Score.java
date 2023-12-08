@@ -9,9 +9,7 @@ public class Score extends GameEntity implements DrawableSimulable {
     private Point2D position;
     private Game game;
     private int scoreL=0;
-    private int scoreR=0;
     private String nameL;
-    private String nameR;
 
     public Score(Game game, Point2D position)
     {
@@ -26,22 +24,11 @@ public class Score extends GameEntity implements DrawableSimulable {
         {
             scoreL++;
         }
-        else
-        {
-            scoreR++;
-        }
     }
 
     public int getScore(int goalId)
     {
-        if(goalId==0)
-        {
-            return scoreL;
-        }
-        else
-        {
-            return scoreR;
-        }
+        return scoreL;
     }
 
     @Override
@@ -70,51 +57,24 @@ public class Score extends GameEntity implements DrawableSimulable {
     {
         this.nameL=name;
     }
-    public void setNameR(String name)
-    {
-        this.nameR=name;
-    }
     public String getNameL()
     {
         return this.nameL;
-    }
-    public String getNameR()
-    {
-        return this.nameR;
     }
     public void setScoreL(int score)
     {
         this.scoreL=score;
     }
-    public void setScoreR(int score)
-    {
-        this.scoreR=score;
-    }
+
 
     @Override
     public String toString()
     {
-        if(scoreL>scoreR)
-        {
-            return nameL + ": "+scoreL;
-        }
-        else if(scoreL<scoreR)
-        {
-            return nameR + ": "+scoreR;
-        }
         return nameL + ": "+scoreL;
     }
     @Override
     public int hashCode()
     {
-        if(scoreL>=scoreR)
-        {
-            return nameL.hashCode();
-        }
-        else
-        {
-            return nameR.hashCode();
-        }
-
+        return nameL.hashCode();
     }
 }

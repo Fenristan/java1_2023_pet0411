@@ -77,7 +77,6 @@ public class Alien extends GameEntity implements Collisionable {
         }
         else if(another instanceof Cannon)
         {
-            System.out.println("toestrsfdfsd");
             hitListener.hit((Cannon)another);
         }
 
@@ -89,7 +88,6 @@ public class Alien extends GameEntity implements Collisionable {
     public void changeDirection() {
         position = new Point2D(position.getX(), position.getY()-10);
         direction = new Point2D(-direction.getX(), direction.getY());
-        System.out.println("Changed directions");
     }
 
     public Point2D getPosition() {

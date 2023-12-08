@@ -23,22 +23,18 @@ public class App extends Application {
         try {
             //Construct a main window with a canvas.
 
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("gameview.fxml"));
             BorderPane pane = loader.load();
 
-            //Group root = new Group();
-            //canvas = new Canvas(800, 600);
-            //root.getChildren().add(canvas);
             Scene scene = new Scene(pane);
 
 
             primaryStage.setScene(scene);
             primaryStage.resizableProperty().set(false);
-            primaryStage.setTitle("Java 1 - 5th laboratory");
+            primaryStage.setTitle("Java I - Space Invaders");
             primaryStage.show();
-            controller = loader.getController();//new GameController(canvas);
-            //controller.startGame();
+            controller = loader.getController();
+
             //Exit program when main window is closed
             primaryStage.setOnCloseRequest(this::exitProgram);
         } catch (Exception e) {

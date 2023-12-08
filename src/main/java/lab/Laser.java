@@ -12,11 +12,6 @@ public class Laser extends GameEntity implements DrawableSimulable, Collisionabl
 	private Point2D size;
 	private Game game;
 	private boolean fired = false;
-
-	/*public Ball(Game game)
-	{
-		this.game = game;
-	}*/
 	
 	public Laser(Game game, Point2D start, Point2D speed, Point2D size)
 	{
@@ -30,7 +25,6 @@ public class Laser extends GameEntity implements DrawableSimulable, Collisionabl
 	public void collision()
 	{
 		reset();
-		System.out.println("Collision");
 	}
 
 	public Rectangle2D getBoundingBox()
@@ -52,7 +46,6 @@ public class Laser extends GameEntity implements DrawableSimulable, Collisionabl
 		else if(position.getY()+size.getY()<0)
 		{
 			reset();
-			System.out.println("dole");
 		}
 
 		/*if(position.getY()>game.getHeight()-10)
@@ -84,7 +77,6 @@ public class Laser extends GameEntity implements DrawableSimulable, Collisionabl
 			return;
 		}
 		fired = true;
-		System.out.println(position);
 		this.position = new Point2D(position.getX(),game.getHeight()-position.getY());
 
 	}

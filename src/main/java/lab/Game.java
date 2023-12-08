@@ -20,15 +20,9 @@ public class Game {
 	private Rectangle2D wall1;
 	private Rectangle2D wall2;
 
-	private Net net;
-
 	private Score score;
 
-	private Goal goalL;
-	private Goal goalR;
-
-	private String leftPlayerName;
-	private String rightPlayerName;
+	private String playerName;
 	private GameListener gameListener = new EmptyGameListener();
 	boolean aliensChangeDirection = false;
 	private Alien[] aliens = new Alien[55];
@@ -98,7 +92,7 @@ public class Game {
 			alien.setHitListener(new HitListener(){
 				@Override
 				public void hit() {
-					Game.this.score.increaseScore(0);;
+					Game.this.score.increaseScore(0);
 					gameListener.stateChanged(Game.this.score);
 
 				}
@@ -132,13 +126,6 @@ public class Game {
 		}
 
 		objects[62] = alienLaser;
-		//objects[3] = aliens[0];
-		//objects[4] = aliens[1];
-		//objects[5] = goalL;
-		//objects[6] = goalR;
-
-		wall1 = new Rectangle2D(0,0,this.width,10);
-		wall2 = new Rectangle2D(0,this.height-10,this.width,10);
 
 	}
 	
@@ -178,7 +165,6 @@ public class Game {
 					Point2D alienPosition = aliens[i].getPosition();
 					alienLaser = (Laser) objects[62];
 					alienLaser.fire(new Point2D(alienPosition.getX(),height - alienPosition.getY()+50));
-					System.out.println("vypalil prvni alien: "+i);
 				}
 			}
 		}
@@ -186,24 +172,15 @@ public class Game {
 		{
 			if(aliens[i-aliensInRow].isAlive())
 			{
-				//if(rand.nextInt(11) == 0)
-				//{
-					//Point2D alienPosition = aliens[i+aliensInRow].getPosition();
-					//alienLaser = (Laser) objects[62];
-					//alienLaser.fire(new Point2D(alienPosition.getX()+alienPosition.getX()/2,height - alienPosition.getY()+70));
-				//}
-				//System.out.println("vypalil prvni alien: "+i +"ktery je zivy? "+aliens[i+aliensInRow].isAlive());
+
 			}
 			else if(aliens[i].isAlive())
 			{
-				//if(rand.nextInt(11) == 0)
-				//{
 				if(rand.nextInt()%11 == 0)
 				{
 					Point2D alienPosition = aliens[i].getPosition();
 					alienLaser = (Laser) objects[62];
 					alienLaser.fire(new Point2D(alienPosition.getX(),height - alienPosition.getY()+50));
-					System.out.println("vypalil neprvni alien: "+i);
 				}
 
 			}
@@ -256,15 +233,6 @@ public class Game {
 		return height;
 	}
 
-    public void moveLeftBatUp() {
-		Cannon b = (Cannon)objects[1];
-		b.moveUp();
-    }
-
-	public void moveLeftBatDown() {
-		Cannon b = (Cannon)objects[1];
-		b.moveDown();
-	}
 	public void moveLeftBatLeft() {
 		Cannon b = (Cannon)objects[1];
 		b.moveLeft();
@@ -274,23 +242,8 @@ public class Game {
 		b.moveRight();
 	}
 
-	public void moveRightBatUp() {
-		Cannon b = (Cannon)objects[2];
-		b.moveUp();
-	}
-
-	public void moveRightBatDown() {
-		Cannon b = (Cannon)objects[2];
-		b.moveDown();
-	}
-
 	public void stopMoveLeftBat() {
 		Cannon b = (Cannon)objects[1];
-		b.moveStop();
-	}
-
-	public void stopMoveRightBat() {
-		Cannon b = (Cannon)objects[2];
 		b.moveStop();
 	}
 
@@ -300,13 +253,10 @@ public class Game {
 		laser.fire(new Point2D(b.getPosition().getX()+b.getSize().getX()/2,b.getPosition().getY()-b.getSize().getY()));
 	}
 
-	public void setLeftPlayerName(String text) {
-		leftPlayerName = text;
+	public void setPlayerName(String text) {
+		playerName = text;
 	}
 
-	public void setRightPlayerName(String text) {
-		rightPlayerName = text;
-	}
 
 	public void setGameListener(GameListener listener) {
 		this.gameListener = listener;

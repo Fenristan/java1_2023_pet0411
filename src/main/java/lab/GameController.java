@@ -7,11 +7,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
 import java.io.BufferedReader;
@@ -159,6 +157,7 @@ public class GameController {
 		//Draw scene on a separate thread to avoid blocking UI.
 		animationTimer = new DrawingThread(canvas, game);
 		game.setGameListener(new GameListener2());
+		GameController.this.scoreL.setText("0");
 		animationTimer.start();
 	}
 
@@ -176,7 +175,7 @@ public class GameController {
 		textbox1.setMouseTransparent(true);
 		textbox1.setEditable(false);
 
-		game.setLeftPlayerName(textbox1.getText());
+		game.setPlayerName(textbox1.getText());
 
 		canvas.requestFocus();
 	}
@@ -191,11 +190,6 @@ public class GameController {
 				{
 					fw.write(score.getNameL()+";"+score.getScore(0)+"\n");
 				}
-				else
-				{
-					fw.write(score.getNameR()+";"+score.getScore(1)+"\n");
-				}
-
 
 			}
 		}
